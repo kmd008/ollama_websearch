@@ -1,14 +1,17 @@
 # 🔍 Ollama Web Search
 
-An intelligent web search tool that combines real-time web search with AI-powered summarization using Ollama and SearXNG.
+A beautiful, intelligent web search tool that combines real-time web search with AI-powered summarization using Ollama and SearXNG. Features a professional, branded interface with clear visual distinction between sources and AI analysis.
 
 ## ✨ Features
 
-- **Real-time Web Search**: Integrates with SearXNG for comprehensive search results
-- **AI-Powered Summarization**: Uses Ollama's language models to provide intelligent summaries
-- **Multiple Source Aggregation**: Fetches and analyzes content from top search results
-- **Clean Text Extraction**: Uses Mozilla Readability for clean content extraction
-- **Command-line Interface**: Simple and intuitive terminal-based usage
+- **🔍 Real-time Web Search**: Integrates with SearXNG for comprehensive, privacy-focused search results
+- **🤖 AI-Powered Summarization**: Uses Ollama's language models to provide intelligent, structured summaries
+- **📊 Multiple Source Aggregation**: Fetches and analyzes content from top search results
+- **🧹 Clean Text Extraction**: Uses Mozilla Readability for clean, readable content extraction
+- **🎨 Beautiful Interface**: Professional, branded terminal interface with clear visual hierarchy
+- **🔒 Enhanced Security**: Proper SSL certificate handling and robust error management
+- **🌐 Browser Simulation**: Anti-bot detection headers for better website compatibility
+- **📝 Comprehensive Documentation**: Well-documented codebase for easy contribution and learning
 
 ## 🚀 Quick Start
 
@@ -63,11 +66,19 @@ search "latest AI developments"
 
 #### Example Output
 ```
-Query: President Mahama grant Amnesty for 999 prisons
-Fetching https://www.facebook.com/joy997fm/posts/president-mahama-grants-amnesty-to-998-prisoners...
-Fetching https://isd.gov.gh/president-mahama-grants-amnesty-to-998-prisoners/
+🔍 Ollama Web Search - AI-Powered Research Assistant
+════════════════════════════════════════════════════════════
+📝 Query: President Mahama grant Amnesty for 999 prisons
+════════════════════════════════════════════════════════════
+🌐 Fetching: https://www.facebook.com/joy997fm/posts/president-mahama-grants-amnesty-to-998-prisoners...
+🌐 Fetching: https://isd.gov.gh/president-mahama-grants-amnesty-to-998-prisoners/
+🌐 Fetching: https://resolve.cambridge.org/core/services/aop-cambridge-core/content/view...
 
-President Mahama granted amnesty to 998 prisoners out of 1,014 recommended by the Prisons Service Council...
+🤖 AI Analysis & Summary:
+════════════════════════════════════════════════════════════
+President Mahama granted amnesty to 998 prisoners out of 1,014 recommended by the Prisons Service Council. The amnesty affects prisoners across seven categories, with first-time offenders making up the largest group at 787 individuals...
+════════════════════════════════════════════════════════════
+✨ Search completed successfully!
 ```
 
 ## 🛠️ Configuration
@@ -110,12 +121,13 @@ ollama_websearch/
 
 ## 🧩 How It Works
 
-1. **Search Query**: The application sends your query to SearXNG
-2. **URL Extraction**: Extracts top search result URLs
-3. **Content Fetching**: Downloads and processes webpage content
-4. **Text Cleaning**: Uses Mozilla Readability for clean text extraction
-5. **AI Analysis**: Sends the cleaned content to Ollama for summarization
-6. **Streaming Response**: Returns AI-generated summary in real-time
+1. **🔍 Search Query**: The application sends your query to SearXNG with beautiful branding
+2. **🌐 URL Extraction**: Extracts top search result URLs with progress indicators
+3. **📄 Content Fetching**: Downloads webpage content using browser-like headers to avoid blocking
+4. **🧹 Text Cleaning**: Uses Mozilla Readability algorithm for clean, readable text extraction
+5. **🤖 AI Analysis**: Sends cleaned content to Ollama with enhanced prompting for structured output
+6. **✨ Streaming Response**: Returns beautifully formatted AI-generated summary in real-time
+7. **🎨 Professional Output**: Displays results with clear visual hierarchy and source attribution
 
 ## 🐳 Docker Setup (Alternative)
 
@@ -155,12 +167,35 @@ deno run --allow-net --allow-env main.ts "test query"
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## 🚀 Recent Improvements
+
+### Version 2.0 Features:
+- **🎨 Beautiful Interface**: Complete visual overhaul with professional branding
+- **🔒 Enhanced Security**: Proper SSL certificate handling without security warnings
+- **🌐 Better Compatibility**: Browser-like headers to avoid bot detection
+- **📝 Comprehensive Documentation**: Detailed code comments and JSDoc documentation
+- **⚡ Improved Error Handling**: Graceful degradation with informative error messages
+- **✨ Visual Feedback**: Real-time progress indicators and status updates
+
 ## 🙏 Acknowledgments
 
 - **Matt Williams** ([@technovangelist](https://github.com/technovangelist)) - Former Ollama team member who inspired this project
 - **Ollama Team** - For the excellent local AI runtime
 - **SearXNG Project** - For privacy-focused search capabilities
 - **Mozilla Readability** - For clean content extraction
+- **@eliaspereirah** - For suggesting Mozilla Readability approach
+
+## 🎨 Visual Interface
+
+The tool features a beautiful, professional interface with:
+
+- **🔍 Branded Header**: Clear project identification and purpose
+- **📝 Query Display**: Elegant query presentation with visual separators
+- **🌐 Progress Indicators**: Real-time fetching progress with emojis
+- **📰 Source Attribution**: Clear source identification with visual separators
+- **🤖 AI Section**: Distinct AI analysis section with proper formatting
+- **✨ Completion Confirmation**: Professional completion indicator
+- **⚠️ Error Handling**: Graceful error messages with appropriate icons
 
 ## 📊 System Requirements
 
@@ -173,10 +208,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Common Issues
 
-1. **Certificate Errors**: The script includes `--unsafely-ignore-certificate-errors` flag by default
-2. **Model Not Found**: Run `ollama pull llama3.2:1b` to install the required model
-3. **SearXNG Not Running**: Ensure Docker container is running on port 9999
-4. **Permission Denied**: Run `chmod +x search.sh` to make the script executable
+1. **🔒 SSL Certificate Issues**: The application now handles SSL certificates properly with robust error handling
+2. **🤖 Model Not Found**: Run `ollama pull llama3.2:1b` to install the required model
+3. **🐳 SearXNG Not Running**: Ensure Docker container is running on port 9999
+4. **🔐 Permission Denied**: Run `chmod +x search.sh` to make the script executable
+5. **🌐 Network Errors**: The tool gracefully handles network issues and continues with available sources
+6. **🚫 Bot Detection**: Browser-like headers are included to avoid being blocked by websites
 
 ### Getting Help
 
@@ -185,5 +222,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Happy Searching! 🚀**
+## 🌟 Why Choose Ollama Web Search?
+
+- **🚀 Fast & Efficient**: Lightweight design with streaming responses
+- **🔒 Privacy-Focused**: Uses SearXNG for private search without tracking
+- **🎨 Beautiful Interface**: Professional, branded terminal experience
+- **🛡️ Secure**: Proper security practices without bypassing safety measures
+- **📚 Educational**: Well-documented code perfect for learning
+- **🌍 Open Source**: MIT licensed, free for everyone to use and contribute
+
+**Experience the future of AI-powered web search! 🚀✨**
 
