@@ -19,11 +19,21 @@ const searchUrl = Deno.env.get("SEARCH_URL");
 // Get user query from command line arguments
 const query = Deno.args.join(" ");
 
-// Main execution flow
-console.log(`Query: ${query}`);
+// Main execution flow with beautiful formatting
+console.log('\n🔍 Ollama Web Search - AI-Powered Research Assistant');
+console.log('═'.repeat(60));
+console.log(`📝 Query: ${query}`);
+console.log('═'.repeat(60));
+
 const urls = await getNewsUrls(query);        // 1. Search for relevant URLs
 const alltexts = await getCleanedText(urls);  // 2. Extract clean text from URLs
+
+// Beautiful separator before AI response
+console.log('\n🤖 AI Analysis & Summary:');
+console.log('═'.repeat(60));
 await answerQuery(query, alltexts);           // 3. Generate AI summary
+console.log('\n═'.repeat(60));
+console.log('✨ Search completed successfully!');
 
 /**
  * Searches for URLs using SearXNG and returns top results
@@ -59,7 +69,7 @@ async function getCleanedText(urls: string[]) {
 	// Process each URL with robust error handling
 	for await (const url of urls) {
 		try {
-			console.log(`Fetching ${url}`);
+			console.log(`\n🌐 Fetching: ${url}`);
 			
 			// Fetch URL with browser-like headers to avoid bot detection
 			const getUrl = await fetch(url, {
@@ -76,7 +86,7 @@ async function getCleanedText(urls: string[]) {
 			
 			// Check if the request was successful
 			if (!getUrl.ok) {
-				console.warn(`⚠️  Failed to fetch ${url}: ${getUrl.status} ${getUrl.statusText}`);
+				console.warn(`❌ Failed to fetch: ${getUrl.status} ${getUrl.statusText}`);
 				continue; // Skip this URL and try the next one
 			}
 			
@@ -84,12 +94,12 @@ async function getCleanedText(urls: string[]) {
 			const html = await getUrl.text();
 			const text = htmlToText(html);
 			
-			// Add source attribution and clean text to results
-			texts.push(`Source: ${url}\n${text}\n\n`);
+			// Add source attribution with beautiful formatting
+			texts.push(`📰 Source: ${url}\n${text}\n${'─'.repeat(80)}\n`);
 			
 		} catch (error) {
 			// Handle network errors, SSL issues, etc. gracefully
-			console.warn(`⚠️  Error fetching ${url}: ${error.message}`);
+			console.warn(`⚠️  Network error: ${error.message}`);
 			continue; // Continue processing other URLs instead of failing completely
 		}
 	}
@@ -148,8 +158,19 @@ async function answerQuery(query: string, texts: string[]) {
 	const result = await ollama.generate({
 		model: "llama3.2:1b",  // Fast, lightweight model suitable for summarization
 		
-		// Construct prompt that includes the query and source material
-		prompt: `${query}. Summarize the information and provide an answer. Use only the information in the following articles to answer the question: ${texts.join("\n\n")}`,
+		// Construct enhanced prompt with clear instructions for structured output
+		prompt: `Query: "${query}"
+
+Please provide a comprehensive, well-structured answer based on the following sources. Format your response clearly and cite the information appropriately.
+
+Sources:
+${texts.join("\n")}
+
+Instructions:
+- Provide a clear, informative summary
+- Use the information from the sources above
+- Structure your response logically
+- Be concise but thorough`,
 		
 		stream: true,  // Enable streaming for real-time output
 		
