@@ -1,0 +1,10 @@
+{
+  "imports": {
+    "@paoramen/cheer-reader": "jsr:@paoramen/cheer-reader",
+    "ollama": "npm:ollama",
+    "cheerio": "npm:cheerio@1.0.0"
+  },
+  "compilerOptions": {
+    "lib": ["deno.window"]
+  }
+}
