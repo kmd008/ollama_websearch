@@ -52,7 +52,7 @@ async function getNewsUrls(query: string) {
 	// Extract URLs from results and limit to top 3 for performance
 	const urls = searchResultsJson.results
 		.map((result) => result.url)
-		.slice(0, 3); // Get top 3 results for faster processing
+		.slice(0, 5); // Get top 3 results for faster processing
 	
 	return urls;
 }
