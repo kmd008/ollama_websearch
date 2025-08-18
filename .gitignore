@@ -1,3 +1,7 @@
+# Deno
+.deno/
+deno.lock
+
 # OS generated files
 .DS_Store
 .DS_Store?
@@ -7,20 +11,29 @@
 ehthumbs.db
 Thumbs.db
 
-# IDE files (optional - users can uncomment if needed)
-# .vscode/
-# .idea/
+# IDE
+.vscode/
+.idea/
 *.swp
 *.swo
 
-# Environment variables (sensitive data)
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
 .env
 .env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Temporary files
 *.tmp
 *.temp
 
-# Binary files that shouldn't be in repo
+# AppImage files
 *.AppImage
 *.zsync
