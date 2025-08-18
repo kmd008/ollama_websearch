@@ -24,11 +24,33 @@ async function getNewsUrls(query: string) {
 async function getCleanedText(urls: string[]) {
 	const texts = [];
 	for await (const url of urls) {
-		const getUrl = await fetch(url);
-		console.log(`Fetching ${url}`);
-		const html = await getUrl.text();
-		const text = htmlToText(html);
-		texts.push(`Source: ${url}\n${text}\n\n`);
+		try {
+			console.log(`Fetching ${url}`);
+			const getUrl = await fetch(url, {
+				// Add proper headers to appear as a real browser
+				headers: {
+					'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+					'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+					'Accept-Language': 'en-US,en;q=0.5',
+					'Accept-Encoding': 'gzip, deflate, br',
+					'Connection': 'keep-alive',
+					'Upgrade-Insecure-Requests': '1',
+				}
+			});
+			
+			if (!getUrl.ok) {
+				console.warn(`⚠️  Failed to fetch ${url}: ${getUrl.status} ${getUrl.statusText}`);
+				continue;
+			}
+			
+			const html = await getUrl.text();
+			const text = htmlToText(html);
+			texts.push(`Source: ${url}\n${text}\n\n`);
+		} catch (error) {
+			console.warn(`⚠️  Error fetching ${url}: ${error.message}`);
+			// Continue with other URLs instead of failing completely
+			continue;
+		}
 	}
 	return texts;
 }

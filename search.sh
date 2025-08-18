@@ -13,4 +13,4 @@ fi
 
 # Run the search
 cd /home/icyberhack/Project-100/ollama_websearch
-deno run --allow-net --allow-env --unsafely-ignore-certificate-errors main.ts "$*"
+deno run --allow-net --allow-env main.ts "$*"
