@@ -32,8 +32,8 @@ const alltexts = await getCleanedText(urls);  // 2. Extract clean text from URLs
 console.log('\n🤖 AI Analysis & Summary:');
 console.log('═'.repeat(60));
 await answerQuery(query, alltexts);           // 3. Generate AI summary
-console.log('\n═'.repeat(60));
-console.log('✨ Search completed successfully!');
+console.log('\n' + '═'.repeat(60));
+console.log('✨ Search completed successfully!\n');
 
 /**
  * Searches for URLs using SearXNG and returns top results
@@ -69,7 +69,7 @@ async function getCleanedText(urls: string[]) {
 	// Process each URL with robust error handling
 	for await (const url of urls) {
 		try {
-			console.log(`\n🌐 Fetching: ${url}`);
+			console.log(`🌐 Fetching: ${url}`);
 			
 			// Fetch URL with browser-like headers to avoid bot detection
 			const getUrl = await fetch(url, {
