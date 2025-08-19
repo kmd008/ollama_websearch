@@ -1,0 +1,71 @@
+{
+  "searchUrl": "http://localhost:9999/search",
+  "maxResults": 5,
+  "ollamaModel": "llama3.2:1b",
+  "timeout": 30000,
+  "retryAttempts": 3,
+  "outputFormat": "console",
+  "cache": {
+    "enabled": true,
+    "maxSize": 100,
+    "ttlMinutes": 60
+  },
+  "search": {
+    "categories": ["general"],
+    "timeRange": "",
+    "safeSearch": true,
+    "language": "en",
+    "engines": ["google", "bing", "duckduckgo"],
+    "excludeDomains": [
+      "reddit.com",
+      "twitter.com", 
+      "facebook.com",
+      "youtube.com"
+    ],
+    "excludeFileTypes": [
+      ".pdf",
+      ".doc",
+      ".docx",
+      ".xls",
+      ".xlsx",
+      ".ppt",
+      ".pptx"
+    ]
+  },
+  "ai": {
+    "fallbackModels": [
+      "llama3.2:3b",
+      "llama3.2:1b", 
+      "llama3.1:8b",
+      "mistral:7b",
+      "qwen2.5:7b"
+    ],
+    "temperature": 0.7,
+    "topP": 0.9,
+    "topK": 40,
+    "repeatPenalty": 1.1,
+    "maxTokens": 2048,
+    "contextWindow": {
+      "default": 16000,
+      "large": 32000,
+      "xlarge": 65536
+    }
+  },
+  "networking": {
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "retryDelay": 1000,
+    "maxRetries": 3,
+    "rateLimit": {
+      "enabled": true,
+      "requestsPerSecond": 10
+    }
+  },
+  "output": {
+    "showMetrics": true,
+    "showProgress": true,
+    "colorOutput": true,
+    "logLevel": "INFO",
+    "saveHistory": true,
+    "historyPath": "~/.ollama_websearch_history.json"
+  }
+}

@@ -1,0 +1,102 @@
+version: '3.8'
+
+services:
+  # SearXNG - Privacy-focused search engine
+  searxng:
+    image: searxng/searxng:latest
+    container_name: ollama-websearch-searxng
+    ports:
+      - "9999:8080"
+    environment:
+      - SEARXNG_BASE_URL=http://localhost:9999/
+    volumes:
+      - ./searxng:/etc/searxng:rw
+    restart: unless-stopped
+    networks:
+      - ollama-websearch
+
+  # Ollama - Local AI model runner
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-websearch-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    environment:
+      - OLLAMA_ORIGINS=*
+      - OLLAMA_HOST=0.0.0.0
+    restart: unless-stopped
+    networks:
+      - ollama-websearch
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    profiles:
+      - gpu
+
+  # Ollama without GPU support
+  ollama-cpu:
+    image: ollama/ollama:latest
+    container_name: ollama-websearch-ollama-cpu
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    environment:
+      - OLLAMA_ORIGINS=*
+      - OLLAMA_HOST=0.0.0.0
+    restart: unless-stopped
+    networks:
+      - ollama-websearch
+    profiles:
+      - cpu
+
+  # Redis for caching (optional)
+  redis:
+    image: redis:7-alpine
+    container_name: ollama-websearch-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - ollama-websearch
+    profiles:
+      - cache
+
+  # Web interface (optional)
+  web-interface:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: ollama-websearch-web
+    ports:
+      - "3000:3000"
+    environment:
+      - SEARCH_API_URL=http://searxng:8080
+      - OLLAMA_API_URL=http://ollama:11434
+    depends_on:
+      - searxng
+      - ollama
+    restart: unless-stopped
+    networks:
+      - ollama-websearch
+    profiles:
+      - web
+
+volumes:
+  ollama_models:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  ollama-websearch:
+    driver: bridge
+    name: ollama-websearch-network

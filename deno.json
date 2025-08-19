@@ -5,6 +5,42 @@
     "cheerio": "npm:cheerio@1.0.0"
   },
   "compilerOptions": {
-    "lib": ["deno.window"]
+    "lib": ["deno.window", "deno.ns"],
+    "strict": false,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": true
+  },
+  "tasks": {
+    "search": "deno run --allow-net --allow-env --allow-read --allow-write main.ts",
+    "test": "deno test --allow-net --allow-env test.ts",
+    "dev": "deno run --allow-net --allow-env --allow-read --allow-write --watch main.ts",
+    "setup": "./setup.sh",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "lint": "deno lint",
+    "fmt": "deno fmt",
+    "check": "deno check main.ts"
+  },
+  "lint": {
+    "rules": {
+      "tags": ["recommended"]
+    },
+    "exclude": ["node_modules/", "dist/", "build/"]
+  },
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 120,
+    "indentWidth": 2,
+    "semiColons": true,
+    "singleQuote": false,
+    "proseWrap": "preserve",
+    "exclude": ["node_modules/", "dist/", "build/"]
+  },
+  "test": {
+    "include": ["test.ts"],
+    "exclude": ["node_modules/", "dist/", "build/"]
   }
 }
